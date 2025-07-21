@@ -1,0 +1,15 @@
+node_modules/
+
+logs/
+
+.env
+
+dist/
+
+.vscode/
+
+.DS_Store
+
+package-lock.json
+
+frontend/build/
