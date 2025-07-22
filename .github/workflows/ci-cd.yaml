@@ -13,76 +13,70 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4  
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4 
         with:
-          node-version: '14'  
+          node-version: '18'  
+          cache: 'npm'
+          cache-dependency-path: './backend/package-lock.json'
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./backend
 
       - name: Run Lint
         run: npm run lint 
+        working-directory: ./backend
 
   test:
     runs-on: ubuntu-latest
     needs: lint  
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './backend/package-lock.json'
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./backend
 
       - name: Run tests
-        run: npm test --json --outputFile=test-results.json 
+        run: npm test -- --json --outputFile=test-results.json
+        working-directory: ./backend
 
       - name: Upload test results as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4 
         with:
           name: test-results
-          path: test-results.json 
+          path: ./backend/test-results.json
 
-  merge_to_main:
+  build:
     runs-on: ubuntu-latest
     needs: test  
-    if: success() 
+    if: success()
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Git
-        uses: actions/setup-git@v2
-
-      - name: Merge dev into main
-        run: |
-          git checkout main
-          git pull origin main
-          git merge origin/dev
-          git push origin main  # Push changes to the main branch after merge
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: merge_to_main  
-    if: success()  
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './backend/package-lock.json'
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./backend
 
       - name: Build app
-        run: npm run build  
+        run: npm run build
+        working-directory: ./backend
