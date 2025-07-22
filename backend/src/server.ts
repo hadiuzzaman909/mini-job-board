@@ -6,6 +6,7 @@ import jobRoutes from './routes/jobRoutes';
 import applicationRoutes from './routes/applicationRoutes';
 import { errorHandler } from './utils/errorHandler';
 import authRoutes from './routes/authRoutes';
+import setupSwagger from './config/swagger';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json());
 
 connectDB();
+setupSwagger(app);
 
 app.use('/auth', authRoutes);  
 app.use('/jobs', jobRoutes);  

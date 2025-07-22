@@ -3,6 +3,7 @@ import * as jobService from '../services/jobService';
 import { catchAsync } from '../utils/catchAsync';
 
 export const getJobs = catchAsync(async (req: Request, res: Response) => {
+  console.log('Api is hitted')
   const jobs = await jobService.getJobs();
   res.json(jobs);
 });
@@ -13,6 +14,7 @@ export const getJobById = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const createJob = catchAsync(async (req: Request, res: Response) => {
+  console.log('Api is hitted')
   const newJob = await jobService.createJob(req.body);
   res.status(201).json(newJob);
 });

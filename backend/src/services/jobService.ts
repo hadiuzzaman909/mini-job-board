@@ -30,7 +30,7 @@ export const updateJob: IJobService['updateJob'] = async (
     new: true,
     runValidators: true
   });
-  
+
   if (!updatedJob) throw new NotFoundError('Job');
   return updatedJob;
 };
