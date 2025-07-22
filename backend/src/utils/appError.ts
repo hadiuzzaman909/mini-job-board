@@ -1,15 +1,33 @@
-class AppError extends Error {
-    public statusCode: number;
-    public isOperational: boolean;
-    public status: string;
+export class AppError extends Error {
+  constructor(
+    public statusCode: number,
+    message: string,
+    public isOperational = true
+  ) {
+    super(message);
+    Object.setPrototypeOf(this, AppError.prototype);
+  }
 
-    constructor(message: string, statusCode: number) {
-        super(message);
-        this.statusCode = statusCode;
-        this.isOperational = true;
-        this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
-        Error.captureStackTrace(this, this.constructor);  
-    }
+  toJSON() {
+    return {
+      status: this.statusCode >= 500 ? 'error' : 'fail',
+      statusCode: this.statusCode,
+      message: this.message,
+      ...(process.env.NODE_ENV === 'development' && { stack: this.stack })
+    };
+  }
 }
 
-export default AppError;
+export class NotFoundError extends AppError {
+  constructor(entity = 'Resource') {
+    super(404, `${entity} not found`);
+  }
+}
+
+export class ValidationError extends AppError {
+  constructor(errors: Record<string, string>) {
+    super(400, 'Validation failed');
+    this.errors = errors;
+  }
+  errors: Record<string, string>;
+}

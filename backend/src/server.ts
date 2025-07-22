@@ -2,7 +2,10 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
 import logger from './config/logger';
-import errorHandler from './utils/errorHandler';
+import jobRoutes from './routes/jobRoutes';
+import applicationRoutes from './routes/applicationRoutes';
+import { errorHandler } from './utils/errorHandler';
+import authRoutes from './routes/authRoutes';
 
 dotenv.config();
 
@@ -11,6 +14,11 @@ const app = express();
 app.use(express.json());
 
 connectDB();
+
+app.use('/auth', authRoutes);  
+app.use('/jobs', jobRoutes);  
+app.use('/applications', applicationRoutes);  
+
 app.use(errorHandler);
 
 const PORT: number = parseInt(process.env.PORT || '5000');

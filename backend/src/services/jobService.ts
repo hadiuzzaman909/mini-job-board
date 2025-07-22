@@ -1,87 +1,44 @@
-import { JobModel } from '../models/job.model';  
-import logger from '../config/logger';
-import AppError from '../utils/AppError';  
-import { IJob } from '../models/types/job.interface';  
+import { IJob } from '../models/types/job.interface';
+import { JobModel } from '../models/job.model';
+import { NotFoundError } from '../utils/appError';
+import { IJobService } from './types/jobService.interface';
 
-class JobService {
-    async createJob(jobData: IJob): Promise<IJob> {
-        try {
-            const newJob = new JobModel(jobData);
-            await newJob.save();
-            return newJob;
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                logger.error(error.message);
-            } else {
-                logger.error('Unknown error occurred while creating job');
-            }
-            throw new AppError('Error while creating job', 500);  
-        }
-    }
+export const createJob: IJobService['createJob'] = async (
+  jobData: IJob
+): Promise<IJob> => {
+  const newJob = new JobModel(jobData);
+  return newJob.save();
+};
 
-    async getJobs(): Promise<IJob[]> {
-        try {
-            return await JobModel.find();
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                logger.error(error.message);
-            } else {
-                logger.error('Unknown error occurred while fetching jobs');
-            }
-            throw new AppError('Error fetching jobs', 500);  
-        }
-    }
+export const getJobs: IJobService['getJobs'] = async (): Promise<IJob[]> => {
+  return JobModel.find().sort({ createdAt: -1 });
+};
 
-    async getJobById(jobId: string): Promise<IJob> {
-        try {
-            const job = await JobModel.findById(jobId);
-            if (!job) {
-                throw new AppError('Job not found', 404);  
-            }
-            return job;
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                logger.error(error.message);
-            } else {
-                logger.error('Unknown error occurred while fetching job by ID');
-            }
-            throw new AppError('Error fetching job by ID', 500);  
-        }
-    }
+export const getJobById: IJobService['getJobById'] = async (
+  jobId: string
+): Promise<IJob> => {
+  const job = await JobModel.findById(jobId);
+  if (!job) throw new NotFoundError('Job');
+  return job;
+};
 
-    async updateJob(jobId: string, jobData: IJob): Promise<IJob> {
-        try {
-            const updatedJob = await JobModel.findByIdAndUpdate(jobId, jobData, { new: true });
-            if (!updatedJob) {
-                throw new AppError('Job not found', 404);  
-            }
-            return updatedJob;
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                logger.error(error.message);
-            } else {
-                logger.error('Unknown error occurred while updating job');
-            }
-            throw new AppError('Error updating job', 500);  
-        }
-    }
+export const updateJob: IJobService['updateJob'] = async (
+  jobId: string,
+  jobData: Partial<IJob>
+): Promise<IJob> => {
+  const updatedJob = await JobModel.findByIdAndUpdate(jobId, jobData, {
+    new: true,
+    runValidators: true
+  });
+  
+  if (!updatedJob) throw new NotFoundError('Job');
+  return updatedJob;
+};
 
-    async deleteJob(jobId: string): Promise<{ message: string }> {
-        try {
-            const deletedJob = await JobModel.findByIdAndDelete(jobId);
-            if (!deletedJob) {
-                throw new AppError('Job not found', 404); 
-            }
-            return { message: 'Job deleted successfully' };
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                logger.error(error.message);
-            } else {
-                logger.error('Unknown error occurred while deleting job');
-            }
-            throw new AppError('Error deleting job', 500);  
-        }
-    }
-}
-
-export default new JobService();
+export const deleteJob: IJobService['deleteJob'] = async (
+  jobId: string
+): Promise<{ message: string }> => {
+  const deletedJob = await JobModel.findByIdAndDelete(jobId);
+  if (!deletedJob) throw new NotFoundError('Job');
+  return { message: 'Job deleted successfully' };
+};

@@ -1,7 +1,5 @@
-import { IApplication } from '../../models/types/application.interface';
+import { IApplication } from '../../models/types/application.interface';  
 
-interface IApplicationService {
+export interface IApplicationService {
     createApplication(applicationData: IApplication): Promise<IApplication>;
 }
-
-export default IApplicationService;

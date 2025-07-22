@@ -18,11 +18,10 @@ const adminAuth = (req: any, res: any, next: any) => {
     }
 
     const token = jwt.sign(
-        { username: adminUsername, role: 'admin' }, 
-        process.env.JWT_SECRET as string, 
-        { expiresIn: '1h' } 
+        { username: adminUsername, role: 'admin' },
+        process.env.JWT_SECRET as string,
+        { expiresIn: '1h' }
     );
-
 
     res.setHeader('x-auth-token', token);
 
@@ -30,3 +29,4 @@ const adminAuth = (req: any, res: any, next: any) => {
 };
 
 export default adminAuth;
+

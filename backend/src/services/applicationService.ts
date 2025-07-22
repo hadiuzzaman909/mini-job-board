@@ -1,24 +1,16 @@
 import { ApplicationModel } from '../models/application.model';
-import logger from '../config/logger';
-import AppError from '../utils/AppError';  
-import { IApplication } from '../models/types/application.interface';  
+import { JobModel } from '../models/job.model';
+import { IApplicationService } from './types/applicationService.interface';
+import { IApplication } from '../models/types/application.interface';
+import { NotFoundError } from '../utils/appError';
 
-class ApplicationService {
+export const createApplication: IApplicationService['createApplication'] = async (
+  applicationData: IApplication
+): Promise<IApplication> => {
 
-    async createApplication(applicationData: IApplication): Promise<IApplication> {
-        try {
-            const newApplication = new ApplicationModel(applicationData);
-            await newApplication.save();
-            return newApplication;
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                logger.error(error.message);
-            } else {
-                logger.error('Unknown error occurred');
-            }
-            throw new AppError('Error while submitting application', 500);  
-        }
-    }
-}
-
-export default new ApplicationService();
+  const job = await JobModel.findById(applicationData.jobId);
+  if (!job) throw new NotFoundError('Job');
+  
+  const newApplication = new ApplicationModel(applicationData);
+  return newApplication.save();
+};
