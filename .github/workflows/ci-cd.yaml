@@ -88,12 +88,9 @@ jobs:
           with:
             node-version: '18'
 
-        - name: Install Render CLI
-          run: npm install -g @render/cli
-
         - name: Deploy to Render
+          if: github.ref == 'refs/heads/main'
           env:
-            RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+            deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
           run: |
-            render login --api-key $RENDER_API_KEY
-            render deploy service srv-d20einmmcj7s73b35qm0
+            curl "$deploy_url"
