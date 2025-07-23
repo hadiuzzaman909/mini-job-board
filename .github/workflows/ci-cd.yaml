@@ -82,11 +82,18 @@ jobs:
       steps:
         - name: Checkout repository
           uses: actions/checkout@v4
+        
+        - name: Install Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '18'
+
+        - name: Install Render CLI
+          run: npm install -g @render/cli
 
         - name: Deploy to Render
-          uses: render-action/render-action@v1
-          with:
-            service-id: srv-d20einmmcj7s73b35qm0
-            api-key: ${{ secrets.RENDER_API_KEY }}
           env:
-            RENDER_GIT_REPO: https://github.com/hadiuzzaman909/mini-job-board.git
+            RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          run: |
+            render login --api-key $RENDER_API_KEY
+            render deploy service srv-d20einmmcj7s73b35qm0
