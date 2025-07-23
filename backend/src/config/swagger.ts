@@ -10,7 +10,9 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: 'https://mini-job-board-oqvc.onrender.com',
+            url: process.env.NODE_ENV === 'production' 
+            ? 'https://mini-job-board-oqvc.onrender.com' 
+            : 'http://localhost:5000',
         },
     ],
     components: {
@@ -139,13 +141,17 @@ const swaggerDefinition = {
 
 const swaggerOptions = {
     swaggerDefinition,
-    apis: ['./src/routes/*.ts'],
+    apis: [
+        process.env.NODE_ENV === 'production' 
+            ? './dist/routes/*.js'  
+            : './src/routes/*.ts',  
+    ],
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 const setupSwagger = (app: any) => {
-    app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
 
 export default setupSwagger;
