@@ -12,10 +12,14 @@ import setupSwagger from './config/swagger';
 dotenv.config();
 
 const app = express();
-// Enable CORS
-app.use(cors());
+
 
 app.use(express.json());
+
+
+app.use(cors({
+    origin: '*',
+}));
 
 connectDB();
 setupSwagger(app);
@@ -30,7 +34,7 @@ app.use(errorHandler);
 app.get('/', (req: Request, res: Response) => {
     res.json({
         message: 'Welcome to the Job Board API!',
-        documentation: 'Visit https://mini-job-board-oqvc.onrender.com/api for API documentation',
+        documentation: 'Visit https://mini-job-board-oqvc.onrender.com/api-docs for API documentation',
         endpoints: {
             auth: '/auth',
             jobs: '/jobs',
