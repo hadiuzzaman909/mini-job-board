@@ -29,8 +29,13 @@ app.use(errorHandler);
 
 app.get('/', (req: Request, res: Response) => {
     res.json({
-        message: 'Welcome to the Job Board API !',
+        message: 'Welcome to the Job Board API!',
         documentation: 'Visit https://mini-job-board-oqvc.onrender.com/api for API documentation',
+        endpoints: {
+            auth: '/auth',
+            jobs: '/jobs',
+            applications: '/applications',
+        },
     });
 });
 
