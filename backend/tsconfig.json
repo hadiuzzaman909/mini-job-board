@@ -12,15 +12,6 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "types": [
-      "node",
-      "express",
-      "cors",
-      "jsonwebtoken",
-      "swagger-jsdoc",
-      "jest",
-      "swagger-ui-express"
-    ],
     "typeRoots": [
       "./node_modules/@types"
     ]
