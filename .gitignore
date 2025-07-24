@@ -4,7 +4,7 @@ logs/
 
 .env
 
-dist/
+# dist/
 
 .vscode/
 
