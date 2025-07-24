@@ -22,12 +22,13 @@ export const getJobs = async () => {
   }
 };
 
+// Fetch job details by ID
 export const getJobById = async (id: string) => {
   try {
-    const response = await api.get(`/jobs/${id}`);
-    return response.data;
+    const response = await api.get(`/jobs/${id}`);  // Ensure the endpoint is correct
+    return response.data;  // Return the job details
   } catch (error) {
-    console.error(`Error fetching job with ID ${id}:`, error);
+    console.error("Error fetching job details:", error);
     throw new Error('Failed to fetch job details');
   }
 };

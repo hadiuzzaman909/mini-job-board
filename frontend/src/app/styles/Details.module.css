@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: #f4f4f9;
+}
+
+.card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.jobTitle {
+  font-size: 2rem;
+  color: #1a73e8;
+  margin-bottom: 1rem;
+}
+
+.companyName {
+  font-size: 1.5rem;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.jobLocation, .jobDescription, .jobDetails p {
+  margin: 0.5rem 0;
+  color: #4b5563;
+  text-align: left;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  color: #1a73e8;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.jobList {
+  list-style: disc;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.jobDetails {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.loader {
+  font-size: 2rem;
+  color: #0070f3;
+  text-align: center;
+  margin-top: 50px;
+  height: 100vh;
+}
+
+.applyButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}
+
+.applyButton:hover {
+  background-color: #1557b0;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.5rem;
+  }
+
+  .jobTitle {
+    font-size: 1.5rem;
+  }
+
+  .companyName {
+    font-size: 1.25rem;
+  }
+}
