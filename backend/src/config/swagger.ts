@@ -145,8 +145,8 @@ const swaggerOptions = {
     swaggerDefinition,
     apis: [
         process.env.NODE_ENV === 'production'
-            ? './dist/routes/*.js'  // for production
-            : './src/routes/*.ts',  // for local development
+            ? './dist/routes/*.js' 
+            : './src/routes/*.ts', 
     ],
 };
 
