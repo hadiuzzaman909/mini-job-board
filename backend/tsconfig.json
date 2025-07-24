@@ -18,6 +18,7 @@
       "cors",
       "jsonwebtoken",
       "swagger-jsdoc",
+      "jest",
       "swagger-ui-express"
     ]
   },
