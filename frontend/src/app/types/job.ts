@@ -1,33 +1,26 @@
-export interface Location {
+export interface ILocation {
   city: string;
   state: string;
   country: string;
-  zipCode?: string; // Optional based on the schema
+  zipCode?: string;  
 }
 
-export interface Salary {
+export interface ISalary {
   min: number;
   max: number;
   currency: string;
 }
 
-export type JobType = 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
-
-export type JobStatus = 'Active' | 'Closed' | 'On Hold';
-
-export interface Job {
-  _id: string; // Serialized ObjectId from API
+export interface IJob {
+  id: string; 
   title: string;
   company: string;
-  location: Location;
+  location: ILocation;
   description: string;
-  salary: Salary;
-  jobType: JobType;
+  salary: ISalary;
+  jobType: 'Full-time' | 'Part-time' | 'Contract' | 'Internship';
   requirements: string[];
-  benefits?: string[]; // Optional based on the schema
-  applicationDeadline: string; // ISO date string from API
-  jobStatus: JobStatus;
-  postedBy: string; // Serialized ObjectId from API
-  createdAt: string; // ISO date string from API
-  updatedAt: string; // ISO date string from API
+  benefits: string[];
+  applicationDeadline: string; 
+  jobStatus: 'Active' | 'Closed' | 'On Hold';
 }

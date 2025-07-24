@@ -36,7 +36,7 @@ app.use('/applications', applicationRoutes);
 app.get('/', (req: Request, res: Response) => {
     res.json({
         message: 'Welcome to the Job Board API!',
-        documentation: `Visit ${process.env.NODE_ENV === 'production' ? `https://${process.env.VERCEL_URL}/api-docs` : 'http://localhost:5000/api-docs'} for API documentation`,
+        documentation: `Visit ${process.env.NODE_ENV === 'production' ? `https://${process.env.Render_URL}/api-docs` : 'http://localhost:5000/api-docs'} for API documentation`,
         endpoints: {
             auth: '/auth',
             jobs: '/jobs',

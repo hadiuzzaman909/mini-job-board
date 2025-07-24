@@ -14,7 +14,7 @@ const swaggerDefinition = {
     servers: [
         {
             url: process.env.NODE_ENV === 'production'
-                ? `https://${process.env.VERCEL_URL || 'mini-job-board-oqvc.onrender.com'}`
+                ? `https://${process.env.Render_URL || 'mini-job-board-oqvc.onrender.com'}`
                 : 'http://localhost:5000',
         },
     ],
@@ -111,9 +111,9 @@ const swaggerOptions = {
     swaggerDefinition,
     apis: [
         process.env.NODE_ENV === 'production'
-            ? './dist/routes/*.js' // Compiled files for production
-            : './src/routes/*.ts', // Source files for development
-        './src/routes/auth/*.ts', // Ensure auth routes are included
+            ? './dist/routes/*.js' 
+            : './src/routes/*.ts',
+        './src/routes/auth/*.ts', 
     ],
 };
 

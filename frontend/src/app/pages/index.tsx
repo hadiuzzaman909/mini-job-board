@@ -1,8 +1,6 @@
-"use client";
-
 import { useEffect, useState } from 'react';
-import { getJobs } from '../app/services/api';
-import { IJob } from '../app/types/job';
+import { getJobs } from '../services/api';
+import { IJob } from '../types/job';
 
 const HomePage = () => {
   const [jobs, setJobs] = useState<IJob[]>([]);
@@ -11,7 +9,7 @@ const HomePage = () => {
     const fetchJobs = async () => {
       try {
         const data = await getJobs();
-        setJobs(data); // Save jobs to state
+        setJobs(data);
       } catch (error) {
         console.error("Failed to fetch jobs:", error);
       }
@@ -19,15 +17,15 @@ const HomePage = () => {
     fetchJobs();
   }, []);
 
-   return (
+  return (
     <div>
       <h1>Job Listings</h1>
       <ul>
         {jobs.map((job) => (
-          <li key={job.id}> {/* Use job.id as the unique key */}
+          <li key={job.id}>
             <h2>{job.title}</h2>
             <p>{job.company}</p>
-            <p>{job.location?.city}, {job.location?.country}</p>
+            <p>{job.location.city}, {job.location.country}</p>
             <p>{job.description}</p>
             <button>Apply Now</button>
           </li>
