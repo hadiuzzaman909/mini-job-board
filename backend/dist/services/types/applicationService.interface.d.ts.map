@@ -1,0 +1,1 @@
+{"version":3,"file":"applicationService.interface.d.ts","sourceRoot":"","sources":["../../../src/services/types/applicationService.interface.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,0CAA0C,CAAC;AAExE,MAAM,WAAW,mBAAmB;IAChC,iBAAiB,CAAC,eAAe,EAAE,YAAY,GAAG,OAAO,CAAC,YAAY,CAAC,CAAC;CAC3E"}
