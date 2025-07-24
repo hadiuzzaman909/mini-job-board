@@ -7,6 +7,15 @@
   background-color: #f4f4f9;
 }
 
+
+.loading {
+  font-size: 2rem;
+  color: #0070f3;
+  text-align: center;
+  margin-top: 50px;
+  height: 100vh;
+}
+
 .card {
   background-color: white;
   padding: 2rem;
@@ -55,13 +64,6 @@
   text-align: left;
 }
 
-.loader {
-  font-size: 2rem;
-  color: #0070f3;
-  text-align: center;
-  margin-top: 50px;
-  height: 100vh;
-}
 
 .applyButton {
   padding: 0.75rem 1.5rem;

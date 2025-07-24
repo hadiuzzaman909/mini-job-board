@@ -26,32 +26,36 @@ const HomePage = () => {
     fetchJobs();
   }, []);
 
-return (
+  return (
     <div className={styles.container}>
-      <Header />
+      <Header />  
       <main>
-        <h1 className={styles.professionalTitle}>Job Opportunities</h1>
-        <p className={styles.subtitle}>Explore Exciting Career Paths and Opportunities</p>
-        <ul className={styles.jobList}>
-          {jobs.map((job) => (
-            <li key={job._id} className={styles.jobItem}>
-              <h2 className={styles.jobTitle}>{job.title}</h2>
-              <p className={styles.jobCompany}>{job.company}</p>
-              <p className={styles.jobLocation}>{job.location?.city}, {job.location?.country}</p>
-              <p className={styles.jobDescription}>{job.description}</p>
-              <p className={styles.jobSalary}>
-                Salary: {job.salary?.currency} {job.salary?.min} - {job.salary?.max}
-              </p>
-              <p className={styles.jobType}>Job Type: {job.jobType}</p>
-              <p className={styles.jobSalary}>Application Deadline: {new Date(job.applicationDeadline).toLocaleDateString()}</p>
-              <Link href={`/job/${job._id}`}>
-                <button className={styles.applyButton}>Show Details</button>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <h1 className={styles.professionalTitle}>Job Listings</h1> 
+        {loading ? (  
+          <div className={styles.loader}>Loading...</div> 
+        ) : (
+          <ul className={styles.jobList}>
+            {jobs.map((job) => (
+              <li key={job._id} className={styles.jobItem}>
+                <h2 className={styles.jobTitle}>{job.title}</h2>
+                <p className={styles.jobCompany}>{job.company}</p>
+                <p className={styles.jobLocation}>{job.location?.city}, {job.location?.country}</p>
+                <p className={styles.jobDescription}>{job.description}</p>
+                <p className={styles.jobSalary}>
+                  Salary: {job.salary?.currency} {job.salary?.min} - {job.salary?.max}
+                </p>
+                <p className={styles.jobType}>Job Type: {job.jobType}</p>
+                <p className={styles.jobSalary}>Application Deadline: {new Date(job.applicationDeadline).toLocaleDateString()}</p>
+                 {/* Link to the job details page with job ID */}
+                <Link href={`/${job._id}`}>
+                  <button className={styles.applyButton}>Show Details</button>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </main>
-      <Footer />
+      <Footer />  
     </div>
   );
 };

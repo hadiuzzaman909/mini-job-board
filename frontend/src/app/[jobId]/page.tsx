@@ -10,17 +10,21 @@ import Footer from '../components/Footer';
 
 const JobDetails = () => {
   const [job, setJob] = useState<IJob | null>(null);
+  const [isLoading, setIsLoading] = useState(true); 
   const params = useParams();
   const { jobId } = params;
 
   useEffect(() => {
     if (jobId) {
       const fetchJobDetails = async () => {
+        setIsLoading(true); 
         try {
           const jobDetails = await getJobById(jobId as string);
           setJob(jobDetails);
         } catch (error) {
           console.error("Failed to fetch job details:", error);
+        } finally {
+          setIsLoading(false); 
         }
       };
       fetchJobDetails();
@@ -28,43 +32,45 @@ const JobDetails = () => {
   }, [jobId]);
 
   if (!jobId) return <div>Loading...</div>;
-  if (!job) return <div>Loading...</div>;
 
   return (
     <div>
       <Header />
-      <div className={styles.container}>
+      {isLoading && (
+        <div className={styles.loading}>Loading job details...</div>
+      )}
+      {!isLoading && job && (
+        <div className={styles.container}>
+          <div className={styles.card}>
+            <h1 className={styles.jobTitle}>{job.title}</h1>
+            <h2 className={styles.companyName}>{job.company}</h2>
+            <p className={styles.jobLocation}><strong>Location:</strong> {job.location?.city}, {job.location?.country}</p>
+            <p className={styles.jobDescription}><strong>Description:</strong> {job.description}</p>
 
-        <div className={styles.card}>
-          <h1 className={styles.jobTitle}>{job.title}</h1>
-          <h2 className={styles.companyName}>{job.company}</h2>
-          <p className={styles.jobLocation}><strong>Location:</strong> {job.location?.city}, {job.location?.country}</p>
-          <p className={styles.jobDescription}><strong>Description:</strong> {job.description}</p>
+            <h3 className={styles.sectionTitle}>Job Responsibilities</h3>
+            <ul className={styles.jobList}>
+              {job.jobResponsibilities.map((responsibility, index) => (
+                <li key={index}>{responsibility}</li>
+              ))}
+            </ul>
 
-          <h3 className={styles.sectionTitle}>Job Responsibilities</h3>
-          <ul className={styles.jobList}>
-            {job.jobResponsibilities.map((responsibility, index) => (
-              <li key={index}>{responsibility}</li>
-            ))}
-          </ul>
+            <h3 className={styles.sectionTitle}>Skill Requirements</h3>
+            <ul className={styles.jobList}>
+              {job.skillRequirements.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
+            </ul>
 
-          <h3 className={styles.sectionTitle}>Skill Requirements</h3>
-          <ul className={styles.jobList}>
-            {job.skillRequirements.map((skill, index) => (
-              <li key={index}>{skill}</li>
-            ))}
-          </ul>
+            <div className={styles.jobDetails}>
+              <p><strong>Salary:</strong> {job.salary.currency} {job.salary.min} - {job.salary.max}</p>
+              <p><strong>Job Type:</strong> {job.jobType}</p>
+              <p><strong>Application Deadline:</strong> {new Date(job.applicationDeadline).toLocaleDateString()}</p>
+            </div>
 
-          <div className={styles.jobDetails}>
-            <p><strong>Salary:</strong> {job.salary.currency} {job.salary.min} - {job.salary.max}</p>
-            <p><strong>Job Type:</strong> {job.jobType}</p>
-            <p><strong>Application Deadline:</strong> {new Date(job.applicationDeadline).toLocaleDateString()}</p>
+            <button className={styles.applyButton}>Apply Now</button>
           </div>
-
-          <button className={styles.applyButton}>Apply Now</button>
         </div>
-
-      </div>
+      )}
       <Footer />
     </div>
   );
