@@ -143,9 +143,12 @@ const swaggerDefinition = {
 
 const swaggerOptions = {
     swaggerDefinition,
-    apis: ['./src/routes/*.ts'], 
+    apis: [
+        process.env.NODE_ENV === 'production'
+            ? './dist/routes/*.js'  // for production
+            : './src/routes/*.ts',  // for local development
+    ],
 };
-
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
