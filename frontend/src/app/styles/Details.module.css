@@ -7,15 +7,6 @@
   background-color: #f4f4f9;
 }
 
-
-.loading {
-  font-size: 2rem;
-  color: #0070f3;
-  text-align: center;
-  margin-top: 50px;
-  height: 100vh;
-}
-
 .card {
   background-color: white;
   padding: 2rem;
@@ -38,7 +29,9 @@
   margin-bottom: 1rem;
 }
 
-.jobLocation, .jobDescription, .jobDetails p {
+.jobLocation,
+.jobDescription,
+.jobDetails p {
   margin: 0.5rem 0;
   color: #4b5563;
   text-align: left;
@@ -64,6 +57,40 @@
   text-align: left;
 }
 
+/* Loader styles */
+.loader {
+  position: fixed; /* Full viewport overlay */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(255, 255, 255, 0.8); /* translucent white */
+  color: #0070f3;
+  font-size: 1.2rem;
+  gap: 1rem;
+  z-index: 9999; /* above everything */
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #cbd5e1; /* light gray */
+  border-top-color: #0070f3; /* theme blue */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .applyButton {
   padding: 0.75rem 1.5rem;
@@ -74,6 +101,7 @@
   cursor: pointer;
   margin-top: 1.5rem;
   font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .applyButton:hover {

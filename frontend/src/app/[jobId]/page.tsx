@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import styles from '../styles/Details.module.css';
-import { IJob } from '../types/job';
-import { getJobById } from '../services/api';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import styles from "../styles/Details.module.css";
+import { IJob } from "../types/job";
+import { getJobById } from "../services/api";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const JobDetails = () => {
   const [job, setJob] = useState<IJob | null>(null);
@@ -45,15 +46,22 @@ const JobDetails = () => {
     <div>
       <Header />
       {isLoading && (
-        <div className={styles.loading}>Loading job details...</div>
+        <div className={styles.loader}>
+          <div className={styles.spinner}></div>
+          <div>Loading job details...</div>
+        </div>
       )}
       {!isLoading && job && (
         <div className={styles.container}>
           <div className={styles.card}>
             <h1 className={styles.jobTitle}>{job.title}</h1>
             <h2 className={styles.companyName}>{job.company}</h2>
-            <p className={styles.jobLocation}><strong>Location:</strong> {job.location?.city}, {job.location?.country}</p>
-            <p className={styles.jobDescription}><strong>Description:</strong> {job.description}</p>
+            <p className={styles.jobLocation}>
+              <strong>Location:</strong> {job.location?.city}, {job.location?.country}
+            </p>
+            <p className={styles.jobDescription}>
+              <strong>Description:</strong> {job.description}
+            </p>
 
             <h3 className={styles.sectionTitle}>Job Responsibilities</h3>
             <ul className={styles.jobList}>
@@ -70,15 +78,19 @@ const JobDetails = () => {
             </ul>
 
             <div className={styles.jobDetails}>
-              <p><strong>Salary:</strong> {job.salary.currency} {job.salary.min} - {job.salary.max}</p>
-              <p><strong>Job Type:</strong> {job.jobType}</p>
-              <p><strong>Application Deadline:</strong> {new Date(job.applicationDeadline).toLocaleDateString()}</p>
+              <p>
+                <strong>Salary:</strong> {job.salary.currency} {job.salary.min} - {job.salary.max}
+              </p>
+              <p>
+                <strong>Job Type:</strong> {job.jobType}
+              </p>
+              <p>
+                <strong>Application Deadline:</strong>{" "}
+                {new Date(job.applicationDeadline).toLocaleDateString()}
+              </p>
             </div>
 
-            <button
-              className={styles.applyButton}
-              onClick={handleApplyNow}
-            >
+            <button className={styles.applyButton} onClick={handleApplyNow}>
               Apply Now
             </button>
           </div>

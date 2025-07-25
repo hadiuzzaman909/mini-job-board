@@ -16,7 +16,6 @@ export const getJobs = async () => {
     const response = await api.get('/jobs');
     return response.data;
   } catch (error) {
-    console.error("Error fetching jobs:", error);
     throw new Error('Failed to fetch jobs');
   }
 };
@@ -32,13 +31,39 @@ export const getJobById = async (id: string) => {
 };
 
 export const postApplication = async (applicationData: IApplication) => {
+      console.log(applicationData)
   try {
     const response = await api.post('/applications', applicationData);
-    console.log(applicationData)
+
     return response.data;
   } catch (error) {
     console.error("Error posting application:", error);
     throw new Error('Failed to submit application');
+  }
+};
+
+
+export interface ILoginCredentials {
+  username: string;
+  password: string;
+}
+
+export interface ILoginResponse {
+  token: string;
+
+}
+
+export const login = async (credentials: ILoginCredentials): Promise<ILoginResponse> => {
+  try {
+    const response = await api.post("/auth/login", credentials);
+    return response.data;
+  } catch (error: any) {
+    console.error("Login error:", error);
+
+    if (error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+    throw new Error("Failed to login");
   }
 };
 

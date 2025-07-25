@@ -10,17 +10,17 @@ import Link from 'next/link';
 
 const HomePage = () => {
   const [jobs, setJobs] = useState<IJob[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const data = await getJobs();
         console.log(data);
-        setJobs(data);  
+        setJobs(data);
       } catch (error) {
         console.error("Failed to fetch jobs:", error);
       } finally {
-        setLoading(false);  
+        setLoading(false);
       }
     };
     fetchJobs();
@@ -28,11 +28,14 @@ const HomePage = () => {
 
   return (
     <div className={styles.container}>
-      <Header />  
+      <Header />
       <main>
         <h1 className={styles.professionalTitle}>Explore Trending Jobs</h1>
-        {loading ? (  
-          <div className={styles.loader}>Loading...</div> 
+        {loading ? (
+          <div className={styles.loader}>
+            <div className={styles.spinner}></div>
+            <div>Loading jobs...</div>
+          </div>
         ) : (
           <ul className={styles.jobList}>
             {jobs.map((job) => (
@@ -54,7 +57,7 @@ const HomePage = () => {
           </ul>
         )}
       </main>
-      <Footer />  
+      <Footer />
     </div>
   );
 };
