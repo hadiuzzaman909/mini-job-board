@@ -54,7 +54,7 @@ const ApplyPage = () => {
     }
   }, [jobId, router]);
 
-  const validateField = (name: string, value: any) => {
+  const validateField = (name: string, value: string) => {
     switch (name) {
       case "name":
         if (!value) return "Name is required";
@@ -165,8 +165,10 @@ const ApplyPage = () => {
       router.push("/");
     }, 2000);
     
-  } catch (error) {
-    console.error("Error submitting application:", error);
+  } catch (error: unknown) {
+      if (error instanceof Error) {
+    throw new Error(error.message);
+  }
     toast.error("Failed to submit application. Please try again.");
   }
   };

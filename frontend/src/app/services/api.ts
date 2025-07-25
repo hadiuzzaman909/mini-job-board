@@ -15,29 +15,36 @@ export const getJobs = async () => {
   try {
     const response = await api.get('/jobs');
     return response.data;
-  } catch (error) {
+  } catch (error: unknown) {
+      if (error instanceof Error) {
+    throw new Error(error.message);
+  }
     throw new Error('Failed to fetch jobs');
   }
 };
 
 export const getJobById = async (id: string) => {
   try {
-    const response = await api.get(`/jobs/${id}`);  
-    return response.data;  
-  } catch (error) {
-    console.error("Error fetching job details:", error);
+    const response = await api.get(`/jobs/${id}`);
+    return response.data;
+  } catch (error: unknown) {
+      if (error instanceof Error) {
+    throw new Error(error.message);
+  }
     throw new Error('Failed to fetch job details');
   }
 };
 
 export const postApplication = async (applicationData: IApplication) => {
-      console.log(applicationData)
+
   try {
     const response = await api.post('/applications', applicationData);
 
     return response.data;
-  } catch (error) {
-    console.error("Error posting application:", error);
+  } catch (error: unknown) {
+  if (error instanceof Error) {
+    throw new Error(error.message);
+  }
     throw new Error('Failed to submit application');
   }
 };
@@ -57,12 +64,10 @@ export const login = async (credentials: ILoginCredentials): Promise<ILoginRespo
   try {
     const response = await api.post("/auth/login", credentials);
     return response.data;
-  } catch (error: any) {
-    console.error("Login error:", error);
-
-    if (error.response?.data?.message) {
-      throw new Error(error.response.data.message);
-    }
+  } catch (error: unknown) {
+      if (error instanceof Error) {
+    throw new Error(error.message);
+  }
     throw new Error("Failed to login");
   }
 };

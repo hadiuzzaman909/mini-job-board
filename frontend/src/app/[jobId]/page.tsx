@@ -22,7 +22,10 @@ const JobDetails = () => {
         try {
           const jobDetails = await getJobById(jobId as string);
           setJob(jobDetails);
-        } catch (error) {
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+    throw new Error(error.message);
+  }
           console.error("Failed to fetch job details:", error);
         } finally {
           setIsLoading(false);

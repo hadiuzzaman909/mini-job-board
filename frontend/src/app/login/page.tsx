@@ -67,13 +67,12 @@ const LoginPage = () => {
             } else {
                 toast.error("Login failed. Please try again.");
             }
-        } catch (error: any) {
-            console.error("Login error:", error);
-            if (error.response?.data?.message) {
-                toast.error(error.response.data.message);
-            } else {
+        } catch (error: unknown) {
+              if (error instanceof Error) {
+    throw new Error(error.message);
+  }
                 toast.error("Login failed. Please check your credentials.");
-            }
+
         } finally {
             setLoading(false);
         }

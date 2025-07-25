@@ -15,9 +15,8 @@ const HomePage = () => {
     const fetchJobs = async () => {
       try {
         const data = await getJobs();
-        console.log(data);
         setJobs(data);
-      } catch (error) {
+      } catch (error: unknown) {
         console.error("Failed to fetch jobs:", error);
       } finally {
         setLoading(false);
