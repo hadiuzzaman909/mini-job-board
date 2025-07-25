@@ -108,7 +108,6 @@ const ApplyPage = () => {
         applicantAddress: { ...prev.applicantAddress, [addressField]: value },
       }));
 
-      // Validate nested applicantAddress field
       const errorMsg = validateField(name, value);
       setErrors((prev) => ({
         ...prev,
@@ -140,7 +139,6 @@ const ApplyPage = () => {
 
     setErrors(newErrors);
 
-    // Check if any errors exist
     const hasErrors =
       Object.values(newErrors).some((val) => {
         if (typeof val === "object") {
@@ -303,7 +301,7 @@ const ApplyPage = () => {
               type="button"
               className={styles.applyButton}
               onClick={() => router.push(`/job/${jobId}`)}
-              style={{ backgroundColor: "#6b7280", marginLeft: "1rem" }}
+              style={{ backgroundColor: "#6b7280" }}
             >
               Cancel
             </button>
