@@ -51,17 +51,7 @@ Backend: Deployed on Render
 ### Getting Started
 Prerequisites
 Node.js installed on your machine.
-
 npm or yarn for managing packages.
-
-Steps to run locally
-Clone the repository:
-
-bash
-Copy
-Edit
-git clone https://github.com/hadiuzzaman909/mini-job-board.git
-cd mini-job-board
 
 ### Install backend dependencies:
 cd backend
@@ -74,7 +64,6 @@ npm install
 ### Set up environment variables:
 
 For backend, create a .env file and add necessary environment variables such as DB_URI, PORT, etc.
-
 For frontend, ensure all API calls are properly linked to your deployed backend.
 
 ### Start the backend:
@@ -87,33 +76,23 @@ npm start
 Here are the dependencies installed for the Backend:
 
 -express: Web framework for building the API.
-
 -dotenv: To manage environment variables.
-
 -cors: Middleware to enable CORS (Cross-Origin Resource Sharing).
-
 -jsonwebtoken: To handle JSON Web Tokens for authentication.
-
 -mongoose: MongoDB object modeling for Node.js.
-
 -winston: Logger for logging events.
-
 -swagger-jsdoc: Swagger integration for API documentation.
-
 
 ### Frontend Dependencies:
 Here are the Frontend dependencies:
 
 -next: Next.js framework for building SSR and static web applications.
-
 -axios: Promise-based HTTP client for making API requests.
 
-
-## Testing
+### Testing
 The backend includes unit tests for job listings and applications. You can run tests using Jest:
 npm run test
 
-## Troubleshooting
+### Troubleshooting
 No node_modules directory: Run npm install to resolve this.
-
 Build failed due to missing environment variables: Make sure all environment variables are set correctly in .env.
