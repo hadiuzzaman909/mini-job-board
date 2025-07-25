@@ -75,13 +75,19 @@ npm start
 ### Backend Dependencies:
 Here are the dependencies installed for the Backend:
 
--express: Web framework for building the API.
--dotenv: To manage environment variables.
--cors: Middleware to enable CORS (Cross-Origin Resource Sharing).
--jsonwebtoken: To handle JSON Web Tokens for authentication.
--mongoose: MongoDB object modeling for Node.js.
--winston: Logger for logging events.
--swagger-jsdoc: Swagger integration for API documentation.
+express: Web framework for building the API.
+
+dotenv: To manage environment variables.
+
+cors: Middleware to enable CORS (Cross-Origin Resource Sharing).
+
+jsonwebtoken: To handle JSON Web Tokens for authentication.
+
+mongoose: MongoDB object modeling for Node.js.
+
+winston: Logger for logging events.
+
+swagger-jsdoc: Swagger integration for API documentation.
 
 ### Frontend Dependencies:
 Here are the Frontend dependencies:

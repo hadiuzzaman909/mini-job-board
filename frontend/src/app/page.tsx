@@ -30,7 +30,7 @@ const HomePage = () => {
     <div className={styles.container}>
       <Header />  
       <main>
-        <h1 className={styles.professionalTitle}>Job Opportunities</h1>
+        <h1 className={styles.professionalTitle}>Explore Trending Jobs</h1>
         {loading ? (  
           <div className={styles.loader}>Loading...</div> 
         ) : (
