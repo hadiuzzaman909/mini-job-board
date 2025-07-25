@@ -46,7 +46,6 @@ const HomePage = () => {
                 </p>
                 <p className={styles.jobType}>Job Type: {job.jobType}</p>
                 <p className={styles.jobSalary}>Application Deadline: {new Date(job.applicationDeadline).toLocaleDateString()}</p>
-                 {/* Link to the job details page with job ID */}
                 <Link href={`/${job._id}`}>
                   <button className={styles.applyButton}>Show Details</button>
                 </Link>

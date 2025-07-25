@@ -1,7 +1,6 @@
 "use client";
-
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import styles from '../styles/Details.module.css';
 import { IJob } from '../types/job';
 import { getJobById } from '../services/api';
@@ -10,21 +9,22 @@ import Footer from '../components/Footer';
 
 const JobDetails = () => {
   const [job, setJob] = useState<IJob | null>(null);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
   const { jobId } = params;
+  const router = useRouter();
 
   useEffect(() => {
     if (jobId) {
       const fetchJobDetails = async () => {
-        setIsLoading(true); 
+        setIsLoading(true);
         try {
           const jobDetails = await getJobById(jobId as string);
           setJob(jobDetails);
         } catch (error) {
           console.error("Failed to fetch job details:", error);
         } finally {
-          setIsLoading(false); 
+          setIsLoading(false);
         }
       };
       fetchJobDetails();
@@ -32,6 +32,14 @@ const JobDetails = () => {
   }, [jobId]);
 
   if (!jobId) return <div>Loading...</div>;
+
+  const handleApplyNow = () => {
+    if (router) {
+      router.push(`/apply/${jobId}`);
+    } else {
+      console.error("Router not available");
+    }
+  };
 
   return (
     <div>
@@ -67,7 +75,12 @@ const JobDetails = () => {
               <p><strong>Application Deadline:</strong> {new Date(job.applicationDeadline).toLocaleDateString()}</p>
             </div>
 
-            <button className={styles.applyButton}>Apply Now</button>
+            <button
+              className={styles.applyButton}
+              onClick={handleApplyNow}
+            >
+              Apply Now
+            </button>
           </div>
         </div>
       )}

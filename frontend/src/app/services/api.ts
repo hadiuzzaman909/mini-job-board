@@ -11,7 +11,6 @@ const api = axios.create({
   },
 });
 
-// Fetch all jobs
 export const getJobs = async () => {
   try {
     const response = await api.get('/jobs');
@@ -22,11 +21,10 @@ export const getJobs = async () => {
   }
 };
 
-// Fetch job details by ID
 export const getJobById = async (id: string) => {
   try {
-    const response = await api.get(`/jobs/${id}`);  // Ensure the endpoint is correct
-    return response.data;  // Return the job details
+    const response = await api.get(`/jobs/${id}`);  
+    return response.data;  
   } catch (error) {
     console.error("Error fetching job details:", error);
     throw new Error('Failed to fetch job details');
@@ -35,7 +33,8 @@ export const getJobById = async (id: string) => {
 
 export const postApplication = async (applicationData: IApplication) => {
   try {
-    const response = await api.post('/application', applicationData);
+    const response = await api.post('/applications', applicationData);
+    console.log(applicationData)
     return response.data;
   } catch (error) {
     console.error("Error posting application:", error);
